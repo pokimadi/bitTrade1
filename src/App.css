@@ -1,0 +1,107 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body{
+  background:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+.account-balance{
+  display:flex;
+  flex-direction:column;
+  border-left:4px solid deepskyblue;
+  padding-left:8px;
+  background:#e8e8e8;
+  padding:8px;
+  margin-bottom:24px;
+  span{
+    margin-bottom:8px;
+  }
+  span:first-of-type{
+    text-transform:uppercase;
+    color:#888;
+    margin-bottom:16px;
+    border-bottom:1px solid #ddd;
+  }
+}
+
+.form{
+  background:#fff;
+  padding:24px;
+  box-shadow: 0 20px 25px -15px rgba(0, 0, 0, 0.3);
+  min-width:360px;
+  min-height:480px;
+  position:relative;
+  border-top:4px solid deepskyblue;
+  padding-bottom:60px;
+}
+.fieldset{
+  border:none;
+  padding:0;
+  margin:0;
+  margin-bottom:24px;
+  legend{
+    text-transform:uppercase;
+    border-bottom:1px solid #e1e1e1;
+    display:block;
+    width:100%;
+    margin-bottom:8px;
+  }
+  label{
+    display:block;
+    text-transform:uppercase;
+    font-size:12px;
+  }
+  label.is--error{
+    color:deeppink;
+  }
+  .input--text.is--error{
+    border:2px solid deeppink;
+    color:deeppink;
+  }
+  .input--text.is--error::placeholder{
+    color:deeppink;
+  }
+}
+
+.input--text{
+  display:block;
+  border-radius:2px;
+  outline:none;
+  border:none;
+  border:1px solid #888;
+  padding:0 8px;
+  width:100%;
+  height:44px;
+  margin-bottom:16px;
+}
+.input--select{
+  display:block;
+  outline:none;
+  border:1px solid #888;
+  padding:0 8px;
+  width:100%;
+  height:44px;
+  margin-bottom:16px;
+}
+
+.btn--submit{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  left:0;
+  height:60px;
+  border:none;
+  outline:none;
+  background:deepskyblue;
+  text-transform:uppercase;
+  font-weight:bold;
+  color:#222;
+}
