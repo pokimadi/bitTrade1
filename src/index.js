@@ -18,16 +18,16 @@ const allReducers = combineReducers({
 	account: accountReducer
 });
 
-const store = createStore(
+const store = createStore( //Store Created  so other top level application will have easy and controlled Access.
 	allReducers,
 	{
 		user: 'Micheal',
 		account: {
-			balanceUsd: 156.12,
+			balanceUsd: 156.12, //Initializing Balance
       		balanceBtc: 0.0
 		}
 	},
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Using this for time travel debug.
 );
 
 

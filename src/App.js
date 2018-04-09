@@ -9,10 +9,9 @@ class App extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      price: 0, 
-      balanceBTC: 0.0,
-      amountUsd: "",
-      amountBtc: "0",
+      price: 0,  // Updated To bit coin Trade price on Mount.
+      amountUsd: "", //This Will Hold The users Input in USD
+      amountBtc: "0", //This Will Hold The users BTC Value of input
       valid: false
     };
     this.handleChange = this.handleChange.bind(this);
@@ -21,20 +20,36 @@ class App extends Component {
     this.trade = this.trade.bind(this);
   }
 
+  /*
+    handleChange is called whenever the user enter an input.
+    It checks if the input is valid and if it is updates the 
+    Bitcoin Value.
+  */
   handleChange(event) {
     let value = (event.target.value)? event.target.value : "0";
     if(this.validate(value)){
-      this.setState({ amountBtc: this.convertToBTC(value), 
-                      amountUsd: parseFloat(value),
-                      valid:true });
+      this.setState(
+        { amountBtc: this.convertToBTC(value), 
+          amountUsd: parseFloat(value),
+          valid:true }
+      );
     }
   }
 
 
+  /*
+    Converts USD to BTC based on the price at the time the app was initialized.
+  */
   convertToBTC(value){
     return parseFloat(value / this.state.price);
   }
 
+
+  /*
+    Trade is triggered when the trade button is clicked
+    trade checks that the current the valid state boolean to ensure input is valid.
+    If Valid it resets the user input and updaters the user account.
+  */
   trade(event){
     if(this.state.valid){
 
@@ -47,24 +62,28 @@ class App extends Component {
           balanceUsd: this.props.account.balanceUsd - parseFloat(this.state.amountUsd),
           balanceBtc: this.props.account.balanceBtc + parseFloat(this.state.amountBtc)
       });
-      console.log("trade was called", state, this.state.amountUsd);
       this.setState(state);
       event.preventDefault();
     }
 
   }
 
+  /*
+    validate: Call every time user changes input.
+    Checks to ensure that the input is a number between 0 and and the users account baclance.
+  */
   validate(value){
-    console.log(this.state, value);
-    if (!isNaN(parseFloat(value)) && isFinite(value)){ //is numeric
-      console.log("Numeric");
-      if (value >= 0 && value <= this.props.account.balanceUsd){
-        return true;
+      if (!isNaN(parseFloat(value)) && isFinite(value)){ //is numeric
+        if (value >= 0 && value <= this.props.account.balanceUsd){
+          return true;
+        }
       }
-    }
     return false;
   }
 
+  /*
+    On Mount makes rest call to retreive the current trade price.
+  */
   componentDidMount() {
     fetch("https://api.bitfinex.com/v1/pubticker/btcusd")
       .then(res => res.json())
@@ -89,7 +108,6 @@ class App extends Component {
   
   render() {
     const { error, isLoaded, price } = this.state;
-    console.log(this.state);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
